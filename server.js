@@ -311,8 +311,95 @@ app.get('/api/star/get', (req, res) => {
     res.json({
       'message': 'Player Data cleared!'
   });  
+});
+  // Generic Column Update using Map
+  app.post('/api/column/saveMap', (req,res) =>{
+    let fs= require('fs');
+    let content=req.body;
+    //console.log(content);
+    fs.writeFile('./database/columns/map.db', JSON.stringify(content), function (err) {
+        if (err) throw err;
+      });
+      res.json({
+        'message': 'Column Map Upload Successful'
+    });   
+});
 
+app.get('/api/column/getMap', (req, res) => {
+    let fs = require('fs');
+    let id=req.query.id;
+  
+    let raw=fs.readFileSync('./database/columns/map.db');
+    let icr=JSON.parse(raw);
+    res.json(icr);
+  });
 
+  // Generic Player Update using Map
+  app.post('/api/player/saveMap', (req,res) =>{
+    let fs= require('fs');
+    let content=req.body;
+
+    fs.writeFile('./database/players/map.db', JSON.stringify(content), function (err) {
+        if (err) throw err;
+      });
+      res.json({
+        'message': 'Player Map Upload Successful'
+    });   
+});
+
+app.get('/api/player/getMap', (req, res) => {
+    let fs = require('fs');
+    let id=req.query.id;
+  
+    let raw=fs.readFileSync('./database/players/map.db');
+    let icr=JSON.parse(raw);
+    res.json(icr);
+  });
+
+  // Generic Star Update using Map
+  app.post('/api/star/saveMap', (req,res) =>{
+    let fs= require('fs');
+    let content=req.body;
+
+    //console.log(content);
+    fs.writeFile('./database/stars/map.db', JSON.stringify(content), function (err) {
+        if (err) throw err;
+      });
+      res.json({
+        'message': 'Star Map Upload Successful'
+    });   
+});
+
+app.get('/api/star/getMap', (req, res) => {
+    let fs = require('fs');
+    let id=req.query.id;
+  
+    let raw=fs.readFileSync('./database/stars/map.db');
+    let icr=JSON.parse(raw);
+    res.json(icr);
+  });
+
+  // Generic Custom Column Update using Map
+  app.post('/api/column/saveCustomMap', (req,res) =>{
+    let fs= require('fs');
+    let content=req.body;
+
+    //console.log(content);
+    fs.writeFile('./database/columns/custom_map.db', JSON.stringify(content), function (err) {
+        if (err) throw err;
+      });
+      res.json({
+        'message': 'Custom Column Map Upload Successful'
+    });   
+});
+
+app.get('/api/column/getCustomMap', (req, res) => {
+    let fs = require('fs');
+    let id=req.query.id;
+  
+    let raw=fs.readFileSync('./database/columns/custom_map.db');
+    let icr=JSON.parse(raw);
+    res.json(icr);
   });
 
 app.listen(port, () => console.log(`Data Cruncher listening on port ${port}!`))
